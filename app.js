@@ -275,7 +275,44 @@ function showMateriaDetail(id) {
   const m = CLAIMS_DATA.materias.find(item => item.id === id);
   if (!m) return;
 
-  detailContainer.innerHTML = `
+  // Filter means of proof for this materia
+  const matchingMedios = CLAIMS_DATA.mediosProbatorios.filter(item => item.materiaId === id);
+
+  // Group matchingMedios by unique concept
+  const uniqueConceptsMap = {};
+  matchingMedios.forEach(item => {
+    if (!uniqueConceptsMap[item.concepto]) {
+      uniqueConceptsMap[item.concepto] = [];
+    }
+    // Add services
+    item.servicios.forEach(s => {
+      uniqueConceptsMap[item.concepto].push({
+        servicio: s,
+        medios: item.medios
+      });
+    });
+  });
+
+  // Basic plazo logic for flowchart
+  let defaultDays = 20;
+  let plazoExplanation = "";
+  if (id === 1) {
+    defaultDays = 15; // default <= 0.5 UIT
+    plazoExplanation = "Facturación <= 0.5 UIT: <strong>15 días útiles</strong>. Facturación > 0.5 UIT: <strong>20 días útiles</strong>.";
+  } else if (id === 2 || id === 4 || id === 6 || id === 10) {
+    defaultDays = 3;
+    plazoExplanation = "Calidad, falta de servicio, portabilidad y baja se resuelven en un plazo corto de <strong>3 días útiles</strong>.";
+  } else if (id === 5 || id === 7) {
+    defaultDays = 15;
+    plazoExplanation = "Instalación, traslado y recargas se resuelven en un plazo medio de <strong>15 días útiles</strong>.";
+  } else if (id === 11) {
+    defaultDays = 3; // split
+    plazoExplanation = "Falta de entrega de recibos y reporte de llamadas: <strong>3 días útiles</strong>. Negativa a contratar: <strong>20 días útiles</strong>.";
+  } else {
+    plazoExplanation = "Incumplimiento de condiciones, migración y contratación no solicitada se resuelven en un plazo ordinario de <strong>20 días útiles</strong>.";
+  }
+
+  let htmlContent = `
     <div class="detail-header">
       <span class="badge">Materia N° ${m.id}</span>
       <h2>${m.nombre}</h2>
@@ -299,7 +336,191 @@ function showMateriaDetail(id) {
         ${m.ejemplos.map(ex => `<li>${ex}</li>`).join('')}
       </ul>
     </div>
+
+    <!-- INTEGRACIÓN DIDÁCTICA: PLAZOS Y FLUJOGRAMAS -->
+    <div class="detail-section" style="border-top:1px solid var(--border-color); padding-top:20px;">
+      <h3>⏱️ Plazo y Flujo de Resolución</h3>
+      <p class="section-intro" style="margin-bottom: 12px;">${plazoExplanation}</p>
+      
+      ${id === 1 ? `
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="font-size:13px; font-weight:600;">Simular Monto de Reclamo:</label>
+          <div style="display:flex; gap:12px; align-items:center;">
+            <input type="number" id="materia-calc-amount" class="form-control" value="100" style="padding: 8px 12px; width:150px;">
+            <span id="materia-calc-lbl" style="font-size:13px; font-weight:600; color:var(--bitel-teal);">Plazo: 15 días útiles</span>
+          </div>
+        </div>
+      ` : ''}
+
+      <div class="flowchart-container" style="padding: 10px 0; margin-top: 10px; background-color: var(--bg-primary); border-radius: var(--border-radius-sm); border:1px solid var(--border-color);">
+        <div class="flow-node active" style="width: 140px; padding: 10px; background-color:var(--bg-secondary);">
+          <div class="node-title" style="font-size:11px;">1. Presentación</div>
+          <div class="node-desc" style="font-size:9px; color:var(--text-secondary);">Registro del reclamo</div>
+        </div>
+        <div class="flow-arrow" style="font-size:14px;">➔</div>
+        <div class="flow-node active" style="width: 140px; padding: 10px; background-color:var(--bg-secondary);">
+          <div class="node-title" style="font-size:11px;">2. Evaluación</div>
+          <div class="node-desc" style="font-size:9px; color:var(--text-secondary);">Medios probatorios</div>
+        </div>
+        <div class="flow-arrow" style="font-size:14px;">➔</div>
+        <div class="flow-node highlight" id="materia-node-resolve" style="width: 140px; padding: 10px;">
+          <div class="node-title" style="font-size:11px;">3. Resolución</div>
+          <div class="node-desc" id="materia-flow-res-days" style="font-size:9px; font-weight:700;">${defaultDays} días hábiles</div>
+        </div>
+        <div class="flow-arrow" style="font-size:14px;">➔</div>
+        <div class="flow-node active" style="width: 140px; padding: 10px; background-color:var(--bg-secondary);">
+          <div class="node-title" style="font-size:11px;">4. Notificación</div>
+          <div class="node-desc" style="font-size:9px; color:var(--text-secondary);">5 días hábiles</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTEGRACIÓN DIDÁCTICA: ASISTENTE DE MEDIOS PROBATORIOS -->
+    <div class="detail-section" style="border-top:1px solid var(--border-color); padding-top:20px;">
+      <h3>⚖️ Asistente de Medios Probatorios</h3>
+      <p class="section-intro" style="margin-bottom:14px;">Seleccione el concepto y tipo de servicio haciendo clic en los caminos indicados:</p>
+      
+      <!-- Paso 1: Concepto -->
+      <div class="assistant-step" style="margin-bottom: 16px;">
+        <h4 style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:8px;">Paso 1: Seleccione el Concepto Específico</h4>
+        <div class="concept-buttons-wrapper" style="display:flex; flex-direction:column; gap:8px;">
+          ${Object.keys(uniqueConceptsMap).map((concept, index) => `
+            <button class="assistant-btn concept-btn ${index === 0 ? 'active' : ''}" data-concept="${concept.replace(/"/g, '&quot;')}">
+              ${concept}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Paso 2: Servicio -->
+      <div class="assistant-step" id="assistant-service-step" style="margin-bottom: 16px;">
+        <h4 style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:8px;">Paso 2: Seleccione el Tipo de Servicio</h4>
+        <div class="service-buttons-wrapper" id="assistant-services-container" style="display:flex; flex-wrap:wrap; gap:8px;">
+          <!-- Loaded via JS -->
+        </div>
+      </div>
+
+      <!-- Paso 3: Medios Resultantes -->
+      <div class="assistant-step" id="assistant-result-step">
+        <h4 style="font-size:13px; font-weight:700; color:var(--bitel-teal); margin-bottom:8px;">Resultado: Medios de Prueba a Colocar</h4>
+        <div class="medios-badges" id="assistant-medios-container" style="display:flex; flex-direction:column; gap:6px;">
+          <!-- Loaded via JS -->
+        </div>
+      </div>
+    </div>
   `;
+
+  detailContainer.innerHTML = htmlContent;
+
+  // Bind interactive events for this materia detail
+  bindMateriaDetailEvents(id, uniqueConceptsMap);
+}
+
+function bindMateriaDetailEvents(materiaId, uniqueConceptsMap) {
+  // 1. Calculator events for Facturación (id === 1)
+  const amountInput = document.getElementById("materia-calc-amount");
+  const calcLabel = document.getElementById("materia-calc-lbl");
+  const flowDaysDesc = document.getElementById("materia-flow-res-days");
+  
+  if (amountInput && calcLabel && flowDaysDesc) {
+    const updateMateriaPlazo = () => {
+      const val = parseFloat(amountInput.value) || 0;
+      const uitLimit = CLAIMS_DATA.resolutions.uit2024 * 0.5; // S/ 2575.00
+      if (val <= uitLimit) {
+        calcLabel.textContent = "Plazo: 15 días útiles";
+        flowDaysDesc.innerHTML = "15 días hábiles";
+      } else {
+        calcLabel.textContent = "Plazo: 20 días útiles";
+        flowDaysDesc.innerHTML = "20 días hábiles";
+      }
+    };
+    amountInput.addEventListener("input", updateMateriaPlazo);
+  }
+
+  // 2. Medios Probatorios Assistant navigation path
+  const conceptButtons = document.querySelectorAll(".concept-btn");
+  const serviceContainer = document.getElementById("assistant-services-container");
+  const mediosContainer = document.getElementById("assistant-medios-container");
+
+  let selectedConcept = "";
+
+  function selectConcept(conceptName) {
+    selectedConcept = conceptName;
+    
+    // Update active concept button
+    conceptButtons.forEach(btn => {
+      if (btn.getAttribute("data-concept") === conceptName) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    // Populate service options for this concept
+    const options = uniqueConceptsMap[conceptName] || [];
+    serviceContainer.innerHTML = "";
+    
+    options.forEach((opt, index) => {
+      const btn = document.createElement("button");
+      btn.className = "assistant-btn service-btn";
+      btn.textContent = opt.servicio;
+      btn.dataset.index = index;
+      serviceContainer.appendChild(btn);
+
+      btn.addEventListener("click", () => {
+        // Highlight active service button
+        document.querySelectorAll(".service-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        
+        // Show medios
+        renderMediosResult(opt.medios);
+      });
+    });
+
+    // Auto-click the first service button if available
+    const firstServiceBtn = serviceContainer.querySelector(".service-btn");
+    if (firstServiceBtn) {
+      firstServiceBtn.click();
+    } else {
+      // Clear result
+      mediosContainer.innerHTML = `
+        <div class="alert alert-info" style="margin: 0;">No se registraron medios probatorios para este concepto.</div>
+      `;
+    }
+  }
+
+  function renderMediosResult(medios) {
+    mediosContainer.innerHTML = "";
+    if (!medios || medios.length === 0) {
+      mediosContainer.innerHTML = `
+        <div class="alert alert-info" style="margin: 0;">No se requieren medios de prueba especiales.</div>
+      `;
+      return;
+    }
+
+    medios.forEach(medio => {
+      const item = document.createElement("div");
+      item.className = "medio-badge-item";
+      item.innerHTML = `
+        <span class="medio-check">✓</span>
+        <span>${medio}</span>
+      `;
+      mediosContainer.appendChild(item);
+    });
+  }
+
+  // Auto-select first concept on load
+  const firstConceptBtn = document.querySelector(".concept-btn");
+  if (firstConceptBtn) {
+    selectConcept(firstConceptBtn.getAttribute("data-concept"));
+  }
+
+  // Setup click listeners for all concept buttons
+  conceptButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectConcept(btn.getAttribute("data-concept"));
+    });
+  });
 }
 
 /* ==========================================================================
