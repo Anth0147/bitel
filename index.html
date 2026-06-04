@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Normativo y Operativo de Reclamos - Bitel / OSIPTEL</title>
+  <meta name="description" content="Centro de información interactiva y normativa de reclamos de Bitel conforme a las regulaciones de OSIPTEL.">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo-area">
+        <div class="bitel-brand">
+          <span class="logo-b">b</span>
+          <span class="logo-text">bitel</span>
+        </div>
+        <div class="logo-sub">Portal de Reclamos</div>
+      </div>
+      
+      <nav class="nav-menu">
+        <a href="#conceptos" class="nav-item active" id="nav-conceptos">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">Conceptos Básicos</span>
+        </a>
+        <a href="#materias" class="nav-item" id="nav-materias">
+          <span class="nav-icon">📂</span>
+          <span class="nav-label">Materias de Reclamo</span>
+        </a>
+        <a href="#flujos" class="nav-item" id="nav-flujos">
+          <span class="nav-icon">⏱️</span>
+          <span class="nav-label">Plazos y Flujograma</span>
+        </a>
+        <a href="#medios" class="nav-item" id="nav-medios">
+          <span class="nav-icon">⚖️</span>
+          <span class="nav-label">Medios Probatorios</span>
+        </a>
+
+      </nav>
+      
+      <div class="sidebar-footer">
+        <span class="status-indicator"></span>
+        <span class="footer-text">Normativa OSIPTEL 2024</span>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <header class="app-header">
+        <div class="header-title">
+          <h1 id="page-title">Conceptos Básicos de Reclamos</h1>
+          <p id="page-subtitle" class="subtitle">Marco normativo y requisitos de presentación según el TUO.</p>
+        </div>
+        <div class="header-actions">
+        </div>
+      </header>
+
+      <main class="content-area">
+        
+        <!-- SECTION 1: CONCEPTOS BÁSICOS -->
+        <section id="sec-conceptos" class="tab-pane active">
+          <div class="grid-layout">
+            <!-- Card: Que es un Reclamo -->
+            <div class="card glassmorphism col-2">
+              <div class="card-header">
+                <span class="card-icon">💡</span>
+                <h2>¿Qué es un Reclamo?</h2>
+              </div>
+              <div class="card-body">
+                <p id="concept-def" class="highlight-text"></p>
+                <ul id="concept-props" class="styled-list"></ul>
+              </div>
+            </div>
+
+            <!-- Card: Requisitos de Presentación -->
+            <div class="card glassmorphism col-2">
+              <div class="card-header">
+                <span class="card-icon">📝</span>
+                <h2>Requisitos de Presentación (Art. 52)</h2>
+              </div>
+              <div class="card-body">
+                <p class="section-intro">El reclamo debe presentarse conteniendo los siguientes requisitos indispensables:</p>
+                <div id="requirements-list" class="reqs-grid"></div>
+                <div class="alert alert-info">
+                  <strong>Nota Importante:</strong> Aunque falte algún requisito (excepto los datos del recibo para reclamos de facturación), la empresa operadora está obligada a registrar el reclamo.
+                </div>
+              </div>
+            </div>
+
+            <!-- Card: Formas de Presentación -->
+            <div class="card glassmorphism col-3">
+              <div class="card-header">
+                <span class="card-icon">🚀</span>
+                <h2>Canales de Presentación (Art. 53)</h2>
+              </div>
+              <div class="card-body">
+                <div class="channels-tab-wrapper">
+                  <div class="channels-nav" id="channels-tabs"></div>
+                  <div class="channels-content" id="channels-desc"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card: Etapas Administrativas -->
+            <div class="card glassmorphism col-1">
+              <div class="card-header">
+                <span class="card-icon">🏛️</span>
+                <h2>Instancias Administrativas</h2>
+              </div>
+              <div class="card-body text-center">
+                <div class="stages-timeline">
+                  <div class="stage-step">
+                    <span class="stage-num">1</span>
+                    <h3>Primera Instancia (Art. 22)</h3>
+                    <p>Resuelve la empresa operadora (<strong>Bitel</strong>).</p>
+                  </div>
+                  <div class="stage-divider"></div>
+                  <div class="stage-step">
+                    <span class="stage-num">2</span>
+                    <h3>Segunda Instancia (Art. 24)</h3>
+                    <p>Resuelve <strong>TRASU</strong> (Tribunal de OSIPTEL). Conoce también quejas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card: Prácticas Prohibidas -->
+            <div class="card glassmorphism col-2">
+              <div class="card-header">
+                <span class="card-icon">🚫</span>
+                <h2>Prácticas Prohibidas (Art. 8)</h2>
+              </div>
+              <div class="card-body">
+                <p class="section-intro">La empresa operadora tiene prohibido realizar las siguientes prácticas:</p>
+                <ul id="prohibitions-list" class="check-list-red"></ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: MATERIAS DE RECLAMO -->
+        <section id="sec-materias" class="tab-pane">
+          <div class="search-bar-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="materia-search" placeholder="Buscar materia, submotivo o palabra clave (ej. roaming, velocidad, recarga)...">
+          </div>
+          
+          <div class="materias-container">
+            <div class="materias-sidebar" id="materias-list-nav"></div>
+            <div class="materia-detail-view" id="materia-detail-card"></div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: PLAZOS Y FLUJOGRAMA -->
+        <section id="sec-flujos" class="tab-pane">
+          <div class="grid-layout">
+            <!-- Calculator Card -->
+            <div class="card glassmorphism col-1">
+              <div class="card-header">
+                <span class="card-icon">🔢</span>
+                <h2>Calculadora de Plazos de Resolución</h2>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="calc-materia">Seleccione Materia de Reclamo:</label>
+                  <select id="calc-materia" class="form-control"></select>
+                </div>
+                
+                <div id="calc-amount-group" class="form-group hidden">
+                  <label for="calc-amount">Monto reclamado (S/):</label>
+                  <input type="number" id="calc-amount" class="form-control" placeholder="Ej. 150.00" min="0" step="0.01">
+                  <small class="form-help">Umbral de evaluación: 0.5 UIT (S/ 2575.00) determina si el plazo es de 15 o 20 días.</small>
+                </div>
+
+                <div class="calc-result-box">
+                  <div class="result-metric">
+                    <span class="metric-value" id="calc-res-time">-</span>
+                    <span class="metric-label">Días útiles para resolver</span>
+                  </div>
+                  <div class="result-divider"></div>
+                  <div class="result-metric">
+                    <span class="metric-value" id="calc-notif-time">-</span>
+                    <span class="metric-label">Días útiles para notificar</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Flowchart Card -->
+            <div class="card glassmorphism col-2">
+              <div class="card-header">
+                <span class="card-icon">⚡</span>
+                <h2>Flujo del Proceso de Reclamo</h2>
+              </div>
+              <div class="card-body">
+                <div class="flowchart-container">
+                  <div class="flow-node active" id="node-present">
+                    <div class="node-title">1. Presentación</div>
+                    <div class="node-desc">Registro en canal (Código único y expediente)</div>
+                  </div>
+                  
+                  <div class="flow-arrow">➔</div>
+                  
+                  <div class="flow-node" id="node-eval">
+                    <div class="node-title">2. Evaluación (1ª Instancia)</div>
+                    <div class="node-desc">Actuación de medios probatorios. Bitel investiga de oficio.</div>
+                  </div>
+                  
+                  <div class="flow-arrow">➔</div>
+                  
+                  <div class="flow-node" id="node-resolve">
+                    <div class="node-title">3. Resolución</div>
+                    <div class="node-desc" id="flow-resolve-desc">Plazo máximo de resolución</div>
+                  </div>
+                  
+                  <div class="flow-arrow">➔</div>
+                  
+                  <div class="flow-node" id="node-notify">
+                    <div class="node-title">4. Notificación</div>
+                    <div class="node-desc">Notificación física o por correo (Plazo: 5 días útiles)</div>
+                  </div>
+                </div>
+                
+                <div class="alert alert-warning mt-4">
+                  <strong>Artículo 55° (Límite de Presentación):</strong> Para reclamos de facturación, el plazo máximo de presentación es de 1 año tras el vencimiento del recibo. En los demás casos, se puede presentar en tanto subsista el hecho reclamado.
+                </div>
+              </div>
+            </div>
+
+            <!-- Resolution Types Card -->
+            <div class="card glassmorphism col-3">
+              <div class="card-header">
+                <span class="card-icon">⚖️</span>
+                <h2>Sentidos y Tipos de Resolución</h2>
+              </div>
+              <div class="card-body">
+                <div id="resolution-types-grid" class="resolutions-grid"></div>
+              </div>
+            </div>
+
+            <!-- Billing Cycles Card -->
+            <div class="card glassmorphism col-3" style="margin-top: 10px;">
+              <div class="card-header">
+                <span class="card-icon">📅</span>
+                <h2>Consulta de Ciclos de Facturación (Clientes Antiguos)</h2>
+              </div>
+              <div class="card-body">
+                <p class="section-intro">Consulte el ciclo de facturación y las fechas de emisión/pago ingresando el día de firma de su contrato:</p>
+                <div class="cycles-search-wrapper" style="display: flex; gap: 20px; align-items: flex-end; margin-bottom: 24px;">
+                  <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                    <label for="cycle-input-day">Día de firma de contrato (1 - 31):</label>
+                    <input type="number" id="cycle-input-day" class="form-control" placeholder="Ej. 15" min="1" max="31">
+                  </div>
+                  <div class="cycles-btn-wrapper">
+                    <button id="btn-show-all-cycles" class="action-btn">👁️ Ver Tabla Completa</button>
+                  </div>
+                </div>
+                
+                <div class="cycles-result-grid hidden" id="cycles-result-panel">
+                  <div class="cycle-res-item">
+                    <span class="cycle-res-val" id="cycle-val-ciclo">-</span>
+                    <span class="cycle-res-lbl">Ciclo Asignado</span>
+                  </div>
+                  <div class="cycle-res-item">
+                    <span class="cycle-res-val" id="cycle-val-inicio">-</span>
+                    <span class="cycle-res-lbl">Inicio de Ciclo (Beneficios)</span>
+                  </div>
+                  <div class="cycle-res-item">
+                    <span class="cycle-res-val" id="cycle-val-emision">-</span>
+                    <span class="cycle-res-lbl">Emisión de Recibo</span>
+                  </div>
+                  <div class="cycle-res-item">
+                    <span class="cycle-res-val" id="cycle-val-cierre">-</span>
+                    <span class="cycle-res-lbl">Cierre (Pág. Máx.)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: MEDIOS PROBATORIOS -->
+        <section id="sec-medios" class="tab-pane">
+          <div class="grid-layout">
+            <div class="card glassmorphism col-3">
+              <div class="card-header">
+                <span class="card-icon">🔎</span>
+                <h2>Matriz de Medios Probatorios por Concepto (TRASU)</h2>
+              </div>
+              <div class="card-body">
+                <p class="section-intro">Consulte los medios probatorios oficiales exigidos según el concepto reclamado y el tipo de servicio. Seleccione los parámetros a continuación:</p>
+                
+                <div class="matrix-filter-form">
+                  <div class="form-group flex-1">
+                    <label for="matrix-concept">Concepto Reclamado:</label>
+                    <select id="matrix-concept" class="form-control"></select>
+                  </div>
+                  <div class="form-group flex-1">
+                    <label for="matrix-service">Tipo de Servicio:</label>
+                    <select id="matrix-service" class="form-control">
+                      <option value="">-- Seleccione un Servicio --</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div id="matrix-results" class="matrix-results-area">
+                  <div class="empty-state">
+                    <span class="empty-icon">📂</span>
+                    <p>Seleccione un concepto y tipo de servicio para ver los medios de prueba oficiales.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+      </main>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- Modal Popup for Full Billing Cycles Table -->
+  <div id="cycles-modal" class="modal-overlay hidden">
+    <div class="modal-content glassmorphism">
+      <div class="modal-header">
+        <h2>Matriz de Ciclos de Facturación</h2>
+        <button id="btn-close-modal" class="close-modal-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="cycles-table">
+            <thead>
+              <tr>
+                <th>Fecha de firma de contrato</th>
+                <th>Ciclos</th>
+                <th>Inicio de ciclo<br><small>(Entrega de beneficios)</small></th>
+                <th>Emisión del recibo</th>
+                <th>Cierre de ciclo<br><small>(Fecha máxima de pago)</small></th>
+              </tr>
+            </thead>
+            <tbody id="cycles-table-body">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-notes">
+          <div class="note-line"><strong>Nota 1:</strong> El cambio se está realizando para <em>clientes antiguos</em>.</div>
+          <div class="note-line"><strong>Nota 2:</strong> Para los <em>clientes nuevos</em> todavía no se implementará hasta nuevo aviso.</div>
+          <div class="change-line"><strong>Cambio 1:</strong> Ciclo 15 se cambia a <strong>Ciclo 1</strong></div>
+          <div class="change-line"><strong>Cambio 2:</strong> Ciclo -1 se cambia a <strong>Ciclo 21</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading JS data and logic -->
+  <script src="data.js?v=2"></script>
+  <script src="app.js?v=2"></script>
+</body>
+</html>
