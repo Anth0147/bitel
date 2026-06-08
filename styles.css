@@ -1390,3 +1390,34 @@ body.light-theme .check-spec-item {
 }
 
 
+/* Tabla Comparativa de Medios */
+.medios-comparativa-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.medios-comparativa-table th {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  border-bottom: 2px solid var(--border-color);
+  width: 50%;
+}
+
+.medios-comparativa-table td {
+  padding: 14px;
+  vertical-align: top;
+  width: 50%;
+}
+
+.medios-comparativa-table td:first-child {
+  border-right: 1px solid var(--border-color);
+}

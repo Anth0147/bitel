@@ -19,8 +19,7 @@ function initApp() {
   initCalculadora();
   renderResolutionTypes();
 
-  // Bind Section 4: Matriz de Medios Probatorios
-  initMediosProbatorios();
+
 
   // Bind Billing Cycles
   initBillingCycles();
@@ -55,11 +54,7 @@ function initNavigation() {
       subtitle: "Calcule plazos oficiales y visualice las etapas del proceso administrativo de reclamo.",
       paneId: "sec-flujos"
     },
-    "#medios": {
-      title: "Matriz de Medios Probatorios",
-      subtitle: "Consulte los medios probatorios oficiales exigidos por TRASU según el concepto y servicio.",
-      paneId: "sec-medios"
-    },
+
 
   };
 
@@ -375,10 +370,10 @@ function showMateriaDetail(id) {
       </div>
     </div>
 
-    <!-- INTEGRACIÓN DIDÁCTICA: ASISTENTE DE MEDIOS PROBATORIOS -->
+    <!-- MEDIOS DE PRUEBA A COLOCAR -->
     <div class="detail-section" style="border-top:1px solid var(--border-color); padding-top:20px;">
-      <h3>⚖️ Asistente de Medios Probatorios</h3>
-      <p class="section-intro" style="margin-bottom:14px;">Seleccione el concepto y tipo de servicio haciendo clic en los caminos indicados:</p>
+      <h3>⚖️ Medios de Prueba a Colocar</h3>
+      <p class="section-intro" style="margin-bottom:14px;">Seleccione el concepto y tipo de servicio haciendo clic en las opciones para ver la comparativa:</p>
       
       <!-- Paso 1: Concepto -->
       <div class="assistant-step" style="margin-bottom: 16px;">
@@ -396,15 +391,36 @@ function showMateriaDetail(id) {
       <div class="assistant-step" id="assistant-service-step" style="margin-bottom: 16px;">
         <h4 style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:8px;">Paso 2: Seleccione el Tipo de Servicio</h4>
         <div class="service-buttons-wrapper" id="assistant-services-container" style="display:flex; flex-wrap:wrap; gap:8px;">
-          <!-- Loaded via JS -->
+          <!-- Cargado vía JS -->
         </div>
       </div>
 
       <!-- Paso 3: Medios Resultantes -->
       <div class="assistant-step" id="assistant-result-step">
-        <h4 style="font-size:13px; font-weight:700; color:var(--bitel-teal); margin-bottom:8px;">Resultado: Medios de Prueba a Colocar</h4>
-        <div class="medios-badges" id="assistant-medios-container" style="display:flex; flex-direction:column; gap:6px;">
-          <!-- Loaded via JS -->
+        <h4 style="font-size:13px; font-weight:700; color:var(--bitel-teal); margin-bottom:8px;">Medios de Prueba a Colocar</h4>
+        <div class="table-responsive">
+          <table class="medios-comparativa-table">
+            <thead>
+              <tr>
+                <th>OSIPTEL</th>
+                <th>Bitel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="medios-badges" id="assistant-medios-container-osiptel" style="display:flex; flex-direction:column; gap:6px;">
+                    <!-- Cargados vía JS -->
+                  </div>
+                </td>
+                <td>
+                  <div class="medios-badges" id="assistant-medios-container-bitel" style="display:flex; flex-direction:column; gap:6px;">
+                    <!-- Cargados vía JS -->
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -437,10 +453,11 @@ function bindMateriaDetailEvents(materiaId, uniqueConceptsMap) {
     amountInput.addEventListener("input", updateMateriaPlazo);
   }
 
-  // 2. Medios Probatorios Assistant navigation path
+  // 2. Medios de Prueba navigation path
   const conceptButtons = document.querySelectorAll(".concept-btn");
   const serviceContainer = document.getElementById("assistant-services-container");
-  const mediosContainer = document.getElementById("assistant-medios-container");
+  const osiptelContainer = document.getElementById("assistant-medios-container-osiptel");
+  const bitelContainer = document.getElementById("assistant-medios-container-bitel");
 
   let selectedConcept = "";
 
@@ -472,8 +489,8 @@ function bindMateriaDetailEvents(materiaId, uniqueConceptsMap) {
         document.querySelectorAll(".service-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         
-        // Show medios
-        renderMediosResult(opt.medios);
+        // Show medios comparativa
+        renderMediosResult(opt.medios, opt.servicio);
       });
     });
 
@@ -483,30 +500,68 @@ function bindMateriaDetailEvents(materiaId, uniqueConceptsMap) {
       firstServiceBtn.click();
     } else {
       // Clear result
-      mediosContainer.innerHTML = `
-        <div class="alert alert-info" style="margin: 0;">No se registraron medios probatorios para este concepto.</div>
-      `;
+      if (osiptelContainer && bitelContainer) {
+        const noDataHtml = `<div class="alert alert-info" style="margin: 0; padding: 8px;">No se registraron medios de prueba.</div>`;
+        osiptelContainer.innerHTML = noDataHtml;
+        bitelContainer.innerHTML = noDataHtml;
+      }
     }
   }
 
-  function renderMediosResult(medios) {
-    mediosContainer.innerHTML = "";
+  function renderMediosResult(medios, serviceName) {
+    if (!osiptelContainer || !bitelContainer) return;
+    
+    osiptelContainer.innerHTML = "";
+    bitelContainer.innerHTML = "";
+
+    // OSIPTEL Column
     if (!medios || medios.length === 0) {
-      mediosContainer.innerHTML = `
-        <div class="alert alert-info" style="margin: 0;">No se requieren medios de prueba especiales.</div>
+      osiptelContainer.innerHTML = `
+        <div class="alert alert-info" style="margin: 0; padding: 8px;">No se requieren medios de prueba especiales.</div>
       `;
-      return;
+    } else {
+      medios.forEach(medio => {
+        const item = document.createElement("div");
+        item.className = "medio-badge-item";
+        item.innerHTML = `
+          <span class="medio-check">✓</span>
+          <span>${medio}</span>
+        `;
+        osiptelContainer.appendChild(item);
+      });
     }
 
-    medios.forEach(medio => {
-      const item = document.createElement("div");
-      item.className = "medio-badge-item";
-      item.innerHTML = `
-        <span class="medio-check">✓</span>
-        <span>${medio}</span>
+    // Bitel Column
+    let bitelMedios = [];
+    if (materiaId === 2 && (serviceName === "Servicio Móvil Postpago" || serviceName === "Servicio Móvil Prepago")) {
+      bitelMedios = [
+        "Calidad e idoneidad en la prestación del servicio",
+        "Consulta del estado del servicio",
+        "Informe de Atención de los Problemas de Calidad y Avería",
+        "Histórico de cortes y reactivaciones",
+        "Histórico de Reclamos",
+        "Registro de Problemas de Calidad y Averías",
+        "Detalle de Consumos"
+      ];
+    } else {
+      bitelMedios = medios || [];
+    }
+
+    if (bitelMedios.length === 0) {
+      bitelContainer.innerHTML = `
+        <div class="alert alert-info" style="margin: 0; padding: 8px;">No se requieren medios de prueba especiales.</div>
       `;
-      mediosContainer.appendChild(item);
-    });
+    } else {
+      bitelMedios.forEach(medio => {
+        const item = document.createElement("div");
+        item.className = "medio-badge-item";
+        item.innerHTML = `
+          <span class="medio-check">✓</span>
+          <span>${medio}</span>
+        `;
+        bitelContainer.appendChild(item);
+      });
+    }
   }
 
   // Auto-select first concept on load
@@ -640,132 +695,7 @@ function renderResolutionTypes() {
   });
 }
 
-/* ==========================================================================
-   SECTION 4: MATRIZ DE MEDIOS PROBATORIOS
-   ========================================================================== */
-function initMediosProbatorios() {
-  const selectConcept = document.getElementById("matrix-concept");
-  const selectService = document.getElementById("matrix-service");
-  const resultsArea = document.getElementById("matrix-results");
 
-  // Get list of unique concepts
-  const uniqueConcepts = [];
-  CLAIMS_DATA.mediosProbatorios.forEach(item => {
-    if (!uniqueConcepts.includes(item.concepto)) {
-      uniqueConcepts.push(item.concepto);
-    }
-  });
-
-  // Populate concepts dropdown
-  selectConcept.innerHTML = `<option value="">-- Seleccione Concepto Reclamado --</option>`;
-  uniqueConcepts.forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c;
-    opt.textContent = c;
-    selectConcept.appendChild(opt);
-  });
-
-  // Populate services dropdown when concept changes
-  selectConcept.addEventListener("change", () => {
-    const concept = selectConcept.value;
-    selectService.innerHTML = `<option value="">-- Seleccione un Servicio --</option>`;
-    
-    if (!concept) {
-      resetMatrixResults();
-      return;
-    }
-
-    // Find services mapped to this concept
-    const matchingRows = CLAIMS_DATA.mediosProbatorios.filter(item => item.concepto === concept);
-    
-    // Extract unique services from matching rows
-    const uniqueServices = [];
-    matchingRows.forEach(row => {
-      row.servicios.forEach(s => {
-        if (!uniqueServices.includes(s)) {
-          uniqueServices.push(s);
-        }
-      });
-    });
-
-    uniqueServices.forEach(s => {
-      const opt = document.createElement("option");
-      opt.value = s;
-      opt.textContent = s;
-      selectService.appendChild(opt);
-    });
-
-    resetMatrixResults();
-  });
-
-  // Render results when service is selected
-  selectService.addEventListener("change", () => {
-    const concept = selectConcept.value;
-    const service = selectService.value;
-
-    if (!concept || !service) {
-      resetMatrixResults();
-      return;
-    }
-
-    // Find the matching entry in means of proof database
-    // We check if the entry has the same concept, and the services list includes selected service
-    const match = CLAIMS_DATA.mediosProbatorios.find(item => 
-      item.concepto === concept && item.servicios.includes(service)
-    );
-
-    // If not found, try to find a row matching "Todos los servicios"
-    const fallbackMatch = match ? match : CLAIMS_DATA.mediosProbatorios.find(item => 
-      item.concepto === concept && item.servicios.includes("Todos los servicios")
-    );
-
-    const activeMatch = match || fallbackMatch;
-
-    if (!activeMatch) {
-      resultsArea.innerHTML = `
-        <div class="empty-state">
-          <span class="empty-icon">⚠️</span>
-          <p>No se encontraron medios de prueba específicos registrados para esta combinación.</p>
-        </div>
-      `;
-      return;
-    }
-
-    const mainMateria = CLAIMS_DATA.materias.find(m => m.id === activeMatch.materiaId);
-    const materiaName = mainMateria ? mainMateria.nombre : "Norma OSIPTEL";
-
-    resultsArea.innerHTML = `
-      <div class="probatory-results">
-        <div class="prob-header">
-          <span class="detail-header badge" style="background-color:var(--bitel-teal-glow);color:var(--bitel-teal)">${materiaName}</span>
-          <h3>Concepto: ${activeMatch.concepto}</h3>
-          <p class="prob-sub">Servicio: <strong>${service}</strong> (Ref. Regulación TRASU)</p>
-        </div>
-        
-        <div class="medios-list-wrapper">
-          <h4>⚖️ Medios de Prueba Requeridos (Actuación de Oficio)</h4>
-          <div class="medios-badges">
-            ${activeMatch.medios.map(m => `
-              <div class="medio-badge-item">
-                <span class="medio-check">✓</span>
-                <span>${m}</span>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      </div>
-    `;
-  });
-
-  function resetMatrixResults() {
-    resultsArea.innerHTML = `
-      <div class="empty-state">
-        <span class="empty-icon">📂</span>
-        <p>Seleccione un concepto y tipo de servicio para ver los medios de prueba oficiales.</p>
-      </div>
-    `;
-  }
-}
 
 /* ==========================================================================
    BILLING CYCLES & POPUP MATRIX

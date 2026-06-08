@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Normativo y Operativo de Reclamos - Bitel / OSIPTEL</title>
   <meta name="description" content="Centro de información interactiva y normativa de reclamos de Bitel conforme a las regulaciones de OSIPTEL.">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
   <!-- Google Fonts - Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,10 +36,7 @@
           <span class="nav-icon">⏱️</span>
           <span class="nav-label">Plazos y Flujograma</span>
         </a>
-        <a href="#medios" class="nav-item" id="nav-medios">
-          <span class="nav-icon">⚖️</span>
-          <span class="nav-label">Medios Probatorios</span>
-        </a>
+
 
       </nav>
       
@@ -284,40 +281,7 @@
           </div>
         </section>
 
-        <!-- SECTION 4: MEDIOS PROBATORIOS -->
-        <section id="sec-medios" class="tab-pane">
-          <div class="grid-layout">
-            <div class="card glassmorphism col-3">
-              <div class="card-header">
-                <span class="card-icon">🔎</span>
-                <h2>Matriz de Medios Probatorios por Concepto (TRASU)</h2>
-              </div>
-              <div class="card-body">
-                <p class="section-intro">Consulte los medios probatorios oficiales exigidos según el concepto reclamado y el tipo de servicio. Seleccione los parámetros a continuación:</p>
-                
-                <div class="matrix-filter-form">
-                  <div class="form-group flex-1">
-                    <label for="matrix-concept">Concepto Reclamado:</label>
-                    <select id="matrix-concept" class="form-control"></select>
-                  </div>
-                  <div class="form-group flex-1">
-                    <label for="matrix-service">Tipo de Servicio:</label>
-                    <select id="matrix-service" class="form-control">
-                      <option value="">-- Seleccione un Servicio --</option>
-                    </select>
-                  </div>
-                </div>
 
-                <div id="matrix-results" class="matrix-results-area">
-                  <div class="empty-state">
-                    <span class="empty-icon">📂</span>
-                    <p>Seleccione un concepto y tipo de servicio para ver los medios de prueba oficiales.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
 
 
@@ -362,7 +326,7 @@
   </div>
 
   <!-- Loading JS data and logic -->
-  <script src="data.js?v=4"></script>
-  <script src="app.js?v=4"></script>
+  <script src="data.js?v=5"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
