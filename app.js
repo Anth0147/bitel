@@ -555,7 +555,6 @@ function bindMateriaDetailEvents(materiaId, uniqueConceptsMap) {
     let bitelMedios = [];
     if (materiaId === 2 && (serviceName === "Servicio Móvil Postpago" || serviceName === "Servicio Móvil Prepago")) {
       bitelMedios = [
-        "Calidad e idoneidad en la prestación del servicio",
         "Consulta del estado del servicio",
         "Informe de Atención de los Problemas de Calidad y Avería",
         "Histórico de cortes y reactivaciones",
