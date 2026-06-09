@@ -36,8 +36,10 @@
           <span class="nav-icon">⏱️</span>
           <span class="nav-label">Plazos y Flujograma</span>
         </a>
-
-
+        <a href="#ciclos" class="nav-item" id="nav-ciclos">
+          <span class="nav-icon">📅</span>
+          <span class="nav-label">Ciclos y Prorrateo</span>
+        </a>
       </nav>
       
       <div class="sidebar-footer">
@@ -239,9 +241,14 @@
                 <div id="resolution-types-grid" class="resolutions-grid"></div>
               </div>
             </div>
+          </div>
+        </section>
 
-            <!-- Billing Cycles Card -->
-            <div class="card glassmorphism col-3" style="margin-top: 10px;">
+        <!-- SECTION 4: CICLOS DE FACTURACIÓN Y PRORRATEO -->
+        <section id="sec-ciclos" class="tab-pane">
+          <div class="grid-layout">
+            <!-- Consulta de Ciclos Card -->
+            <div class="card glassmorphism col-2">
               <div class="card-header">
                 <span class="card-icon">📅</span>
                 <h2>Consulta de Ciclos de Facturación (Clientes Antiguos)</h2>
@@ -254,11 +261,11 @@
                     <input type="number" id="cycle-input-day" class="form-control" placeholder="Ej. 15" min="1" max="31">
                   </div>
                   <div class="cycles-btn-wrapper">
-                    <button id="btn-show-all-cycles" class="action-btn">👁️ Ver Tabla Completa</button>
+                    <button id="btn-show-all-cycles" class="action-btn">👁️ Ver Pantalla Completa</button>
                   </div>
                 </div>
                 
-                <div class="cycles-result-grid hidden" id="cycles-result-panel">
+                <div class="cycles-result-grid hidden" id="cycles-result-panel" style="margin-bottom: 20px;">
                   <div class="cycle-res-item">
                     <span class="cycle-res-val" id="cycle-val-ciclo">-</span>
                     <span class="cycle-res-lbl">Ciclo Asignado</span>
@@ -276,6 +283,118 @@
                     <span class="cycle-res-lbl">Cierre (Pág. Máx.)</span>
                   </div>
                 </div>
+
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--bitel-teal);">Matriz Completa de Ciclos:</h3>
+                <div class="table-responsive" style="max-height: 290px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm);">
+                  <table class="cycles-table" style="font-size: 13px;">
+                    <thead>
+                      <tr>
+                        <th>Firma contrato</th>
+                        <th>Ciclo</th>
+                        <th>Inicio (Beneficios)</th>
+                        <th>Emisión recibo</th>
+                        <th>Cierre (Pago Máx.)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="page-cycles-table-body">
+                      <!-- Rendered via JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calculadora de Prorrateo Card -->
+            <div class="card glassmorphism col-2">
+              <div class="card-header">
+                <span class="card-icon">🧮</span>
+                <h2>Calculadora de Prorrateo Bitel</h2>
+              </div>
+              <div class="card-body">
+                <p class="section-intro">Calcule el prorrateo detallado ingresando el ciclo asignado, el monto del plan y el periodo correspondiente:</p>
+                
+                <div class="prorrateo-form" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;">
+                  <div style="display: flex; gap: 16px;">
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                      <label for="prorrateo-ciclo">Seleccione Ciclo:</label>
+                      <select id="prorrateo-ciclo" class="form-control">
+                        <!-- Cargar vía JS -->
+                      </select>
+                    </div>
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                      <label for="prorrateo-monto">Cargo Fijo / Monto (S/):</label>
+                      <input type="number" id="prorrateo-monto" class="form-control" placeholder="Ej. 29.90" min="0" step="0.01">
+                    </div>
+                  </div>
+
+                  <div style="display: flex; gap: 16px;">
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                      <label for="prorrateo-inicio">Fecha de Inicio Periodo:</label>
+                      <input type="date" id="prorrateo-inicio" class="form-control">
+                    </div>
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                      <label for="prorrateo-fin">Fecha de Fin Periodo:</label>
+                      <input type="date" id="prorrateo-fin" class="form-control">
+                    </div>
+                  </div>
+
+                  <div>
+                    <button id="btn-calcular-prorrateo" class="action-btn" style="width: 100%;">🧮 Calcular Prorrateo</button>
+                  </div>
+                </div>
+
+                <!-- Detalle del Ciclo Seleccionado -->
+                <div id="prorrateo-ciclo-detail" class="cycles-result-grid hidden" style="margin-bottom: 20px; background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); padding: 12px; border-radius: var(--border-radius-sm);">
+                  <div class="cycle-res-item">
+                    <span class="cycle-res-val" id="pro-val-ciclo">-</span>
+                    <span class="cycle-res-lbl">Ciclo Seleccionado</span>
+                  </div>
+                  <div class="cycle-res-item">
+                    <span class="cycle-res-val" id="pro-val-inicio">-</span>
+                    <span class="cycle-res-lbl">Inicio de Ciclo</span>
+                  </div>
+                  <div class="cycle-res-item">
+                    <span class="cycle-res-val" id="pro-val-emision">-</span>
+                    <span class="cycle-res-lbl">Emisión de Recibo</span>
+                  </div>
+                  <div class="cycle-res-item">
+                    <span class="cycle-res-val" id="pro-val-cierre">-</span>
+                    <span class="cycle-res-lbl">Vencimiento (Cierre)</span>
+                  </div>
+                </div>
+
+                <!-- Resultados del Prorrateo -->
+                <div id="prorrateo-result-panel" class="hidden" style="border-top: 1px solid var(--border-color); padding-top: 20px;">
+                  <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--bitel-teal);">Resultados del Cálculo</h3>
+                  
+                  <div class="result-metric" style="margin-bottom: 20px; background-color: var(--bitel-teal-glow); border: 1px solid var(--bitel-teal); padding: 16px; border-radius: var(--border-radius-sm); text-align: center;">
+                    <span class="metric-value" id="prorrateo-total-monto" style="font-size: 32px; font-weight: 800; color: var(--bitel-teal);">S/ 0.00</span>
+                    <span class="metric-label">Monto Total a Pagar / Prorrateado</span>
+                  </div>
+
+                  <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">Desglose del Cálculo:</h4>
+                  <div class="table-responsive" style="margin-bottom: 12px;">
+                    <table class="cycles-table" style="font-size: 13px;">
+                      <thead>
+                        <tr>
+                          <th>Mes / Periodo</th>
+                          <th>Días Activos</th>
+                          <th>Días del Mes</th>
+                          <th>Cálculo Diario</th>
+                          <th>Monto Prorrateado</th>
+                        </tr>
+                      </thead>
+                      <tbody id="prorrateo-breakdown-body">
+                        <!-- Cargado vía JS -->
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div id="prorrateo-explicacion" class="alert alert-info" style="font-size: 13px; line-height: 1.5; margin: 0;">
+                    <!-- Explicación generada vía JS -->
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -326,7 +445,12 @@
   </div>
 
   <!-- Loading JS data and logic -->
-  <script src="data.js?v=7"></script>
-  <script src="app.js?v=7"></script>
+  <script src="data.js?v=8"></script>
+  <script src="js/router.js?v=8"></script>
+  <script src="js/conceptos.js?v=8"></script>
+  <script src="js/materias.js?v=8"></script>
+  <script src="js/calculadora.js?v=8"></script>
+  <script src="js/ciclos.js?v=8"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>

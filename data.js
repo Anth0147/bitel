@@ -452,3 +452,6 @@ const CLAIMS_DATA = {
     { firma: "28, 29, 30, 31", ciclo: "28", inicio: "28", emision: "21", cierre: "27", days: [28, 29, 30, 31] }
   ]
 };
+
+// Exponer como global para compatibilidad
+window.CLAIMS_DATA = CLAIMS_DATA;
