@@ -273,20 +273,40 @@ function showMateriaDetail(id) {
   // Filter means of proof for this materia
   const matchingMedios = CLAIMS_DATA.mediosProbatorios.filter(item => item.materiaId === id);
 
-  // Group matchingMedios by unique concept
+  // Group matchingMedios by unique concept, filtering only allowed services
+  const ALLOWED_SERVICES = [
+    "Servicio Móvil Postpago",
+    "Servicio Móvil Prepago",
+    "Internet de Acceso Fijo"
+  ];
+
   const uniqueConceptsMap = {};
   matchingMedios.forEach(item => {
-    if (!uniqueConceptsMap[item.concepto]) {
-      uniqueConceptsMap[item.concepto] = [];
+    // Determine which of the allowed services apply to this item
+    let appliedServices = [];
+    if (item.servicios.includes("Todos los servicios")) {
+      appliedServices = [...ALLOWED_SERVICES];
+    } else {
+      appliedServices = item.servicios.filter(s => ALLOWED_SERVICES.includes(s));
     }
-    // Add services
-    item.servicios.forEach(s => {
-      uniqueConceptsMap[item.concepto].push({
-        servicio: s,
-        medios: item.medios
+
+    if (appliedServices.length > 0) {
+      if (!uniqueConceptsMap[item.concepto]) {
+        uniqueConceptsMap[item.concepto] = [];
+      }
+      appliedServices.forEach(s => {
+        // Avoid duplicate mappings for the same service in the same concept
+        const existing = uniqueConceptsMap[item.concepto].find(x => x.servicio === s);
+        if (!existing) {
+          uniqueConceptsMap[item.concepto].push({
+            servicio: s,
+            medios: item.medios
+          });
+        }
       });
-    });
+    }
   });
+
 
   // Basic plazo logic for flowchart
   let defaultDays = 20;
