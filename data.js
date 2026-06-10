@@ -102,14 +102,14 @@ const CLAIMS_DATA = {
       nombre: "Facturación y Cobro",
       definicion: "Comprende el desacuerdo del usuario con los montos que figuran en el recibo emitido o los requerimientos de pago del servicio.",
       submotivos: [
-        "El cálculo de los consumos facturados (cuando la sumatoria total no corresponde).",
-        "La tarifa aplicada de consumos adicionales facturados (disconformidad con la tarifa aplicada por consumo realizado).",
-        "El cargo por reconexión (cobro por el cargo de reconexión).",
-        "Otro monto correspondiente a cualquier concepto facturado cuyo consumo se desconoce (monto por reconexión, roaming, datos móviles adicionales, servicios adicionales, etc.).",
-        "Pagos no procesados o registrados (el cliente pagó pero no se verifica en el sistema).",
-        "Montos no facturados oportunamente (importes asociados a notas de débito no incluidos en el recibo).",
-        "Cobros de equipos terminales incluidos en el recibo (desacuerdo en monto o por reintegro de descuento vinculado a la permanencia).",
-        "La aplicación de incremento tarifario no comunicado previamente (recibos emitidos hasta 2 meses desde el vencimiento del primer recibo con el incremento)."
+        "Desacuerdo con el cálculo de los consumos facturados",
+        "Desacuerdo con la tarifa aplicada de consumos adicionales facturados",
+        "Desacuerdo con el cargo por reconexión",
+        "Desacuerdo con otro monto correspondiente a cualquier concepto facturado en el recibo cuyo consumo se desconoce",
+        "Pagos no procesados o registrados",
+        "Cobro de montos no facturados oportunamente o realizados por documentos distinto al recibo",
+        "Cobros de equipos terminales incluido en el recibo por desacuerdo en el monto facturado o por reintegro del descuento de equipos terminales vinculados a la permanencia del servicio público de telecomunicaciones contratado",
+        "Aplicación del incremento tarifario no comunicado previamente al abonado, respecto de los recibos que se emitan hasta el periodo de dos (2) meses desde el vencimiento del primer recibo en que se aplicó dicho incremento"
       ],
       ejemplos: [
         "Cliente adquiere una línea de S/29.90 y todos los meses le viene S/32.00 en su factura.",
@@ -121,13 +121,13 @@ const CLAIMS_DATA = {
       nombre: "Calidad o Idoneidad en la Prestación del Servicio",
       definicion: "Problemas derivados de una inadecuada prestación del servicio técnico u operativo.",
       submotivos: [
-        "Inconvenientes con casilla de voz.",
-        "No realiza o recibe llamadas.",
-        "Envío o recepción de SMS.",
-        "Problemas de señal o cobertura.",
-        "Intermitencia del servicio.",
-        "Lentitud en el servicio de datos.",
-        "Comunicaciones entrecortadas o con ruido."
+        "Inconvenientes con casilla de voz",
+        "No realiza - recibe llamadas",
+        "Envío - recepción de SMS",
+        "Problemas de señal - cobertura",
+        "Intermitencia",
+        "Lentitud",
+        "Comunicaciones entrecortadas o con ruido"
       ],
       ejemplos: [
         "Problemas constantes para realizar llamadas, enviar mensajes o navegar por internet."
@@ -138,10 +138,10 @@ const CLAIMS_DATA = {
       nombre: "Incumplimiento de Condiciones Contractuales, Ofertas y Promociones",
       definicion: "Aplicación de tarifas o condiciones distintas a las pactadas, ofertas no aplicadas o falta de información sobre características del servicio.",
       submotivos: [
-        "Aplicación de condiciones y tarifas distintas a las pactadas en el contrato (salvo modificaciones más beneficiosas).",
-        "Incumplimiento de ofertas o promociones ofrecidas y/o contratadas.",
-        "Descuentos no reconocidos de los atributos y/o beneficios del plan, oferta o promoción.",
-        "Omisión de información o información inexacta sobre la cobertura u otras características/limitaciones del servicio."
+        "Incumplimiento de la aplicación de condiciones y tarifas del plan contratado distintas a las pactadas en el contrato, salvo que se refieran a modificaciones contractuales más beneficiosas o incremento tarifario",
+        "Incumplimiento de ofertas o promociones ofrecidas y/o contratadas",
+        "Descuentos no reconocidos de los atributos y/o beneficios del plan contratado, oferta y/o promoción",
+        "Omisión de información o información inexacta sobre cobertura u otras características o limitaciones del servicio"
       ],
       ejemplos: [
         "El cliente cumple con las condiciones de una promoción de saldo doble pero no se le aplica.",
@@ -154,10 +154,10 @@ const CLAIMS_DATA = {
       nombre: "Falta de Servicio",
       definicion: "Problemas relacionados con cortes injustificados de la línea, falta de reactivación tras el pago o modificaciones no autorizadas en la titularidad.",
       submotivos: [
-        "Interrupción, suspensión, corte o baja injustificada del servicio (o sin observar el procedimiento normativo vigente).",
-        "Suspensión del servicio por uso prohibido en establecimientos penitenciarios.",
-        "Falta de reactivación del servicio pese al pago del recibo.",
-        "Cambio de titularidad del servicio o reposición de SIM card sin consentimiento del abonado."
+        "Interrupción, suspensión, corte o baja injustificada del servicio o sin observar el procedimiento establecido en la normativa vigente",
+        "Suspensión del servicio por uso prohibido en establecimientos penitenciarios",
+        "Falta de reactivación del servicio pese al pago del recibo",
+        "Cambio de titularidad del servicio o reposición de SIM CARD sin consentimiento del abonado"
       ],
       ejemplos: [
         "Cliente paga su deuda pero la línea no se reactiva.",
@@ -169,11 +169,11 @@ const CLAIMS_DATA = {
       nombre: "Instalación, Activación o Traslado del Servicio",
       definicion: "Falta de ejecución de los servicios solicitados o falta de devolución de importes por servicios no ejecutados.",
       submotivos: [
-        "Falta de instalación del servicio fijo solicitado.",
-        "Falta de activación del servicio móvil o de paquetes asociados.",
-        "Falta de traslado del servicio (aplica solo para servicios alámbricos como FTTH).",
-        "Falta de respuesta a la solicitud de traslado o negativa injustificada al mismo.",
-        "Falta de devolución de montos cobrados por instalación, activación o traslado no ejecutados."
+        "Falta de instalación del servicio fijo",
+        "Falta de activación del servicio móvil",
+        "Falta de traslado del servicio",
+        "Falta de respuesta a la solicitud de trasladado o negativa a la misma",
+        "Falta de devolución de los montos cobrados por instalación, activación o traslado no ejecutados"
       ],
       ejemplos: [
         "El cliente solicita instalación de FTTH, pasa la fecha acordada y no se realiza el servicio.",
@@ -185,10 +185,10 @@ const CLAIMS_DATA = {
       nombre: "Falta de Ejecución de Baja o Suspensión del Servicio",
       definicion: "Problemas con solicitudes de cancelación o suspensión temporal que no se ejecutan y generan cobros posteriores.",
       submotivos: [
-        "Falta de ejecución de la baja de la línea solicitada.",
-        "Falta de ejecución de la suspensión temporal del servicio.",
-        "Cobro de montos posteriores a la fecha en que se efectuó la baja o correspondía efectuarla.",
-        "Cobro de montos posteriores a la fecha en que se efectuó la suspensión temporal o correspondía efectuarla."
+        "Falta de ejecución de la baja",
+        "Falta de ejecución de la suspensión temporal del servicio",
+        "Montos cobrados posteriores a la fecha en que se efectuó la baja o correspondía efectuarla",
+        "Montos cobrados posteriores a la fecha en que se efectuó la suspensión temporal o correspondía efectuarla"
       ],
       ejemplos: [
         "El cliente solicitó la baja del servicio pero la empresa sigue emitiendo recibos mensuales."
@@ -199,9 +199,9 @@ const CLAIMS_DATA = {
       nombre: "Recargas",
       definicion: "Problemas relacionados con recargas de saldo o atributos prepago.",
       submotivos: [
-        "Falta de asignación de saldo o atributos de la recarga realizada.",
-        "Descuentos indebidos del saldo o del crédito.",
-        "Afiliación a paquetes de adquisición de tráfico u otros promocionales no solicitados que impliquen un descuento del saldo."
+        "Falta de asignación de saldo o atributos",
+        "Descuentos indebidos de los saldos o del crédito",
+        "Afiliación a paquetes de adquisición de tráfico u otros promocionales no solicitados que impliquen un descuento del saldo"
       ],
       ejemplos: [
         "El cliente realiza una recarga de S/10.00 en un agente autorizado pero el saldo nunca se acredita.",
@@ -213,10 +213,10 @@ const CLAIMS_DATA = {
       nombre: "Contratación No Solicitada",
       definicion: "Desconocimiento por parte del abonado de la contratación de un servicio principal, adicional o adquisición de equipos.",
       submotivos: [
-        "Desconocimiento de la contratación del servicio principal (prepago o postpago).",
-        "Desconocimiento de la contratación de servicios adicionales o suplementarios (servicios de valor agregado - VAS).",
-        "Desconocimiento de adquisición de paquetes de tráfico o señales de programación.",
-        "Desconocimiento de contrato de adquisición o financiamiento de equipo terminal cuyo pago se incluye en el recibo."
+        "Desconoce contratación del servicio principal",
+        "Desconocimiento de servicios adicionales o suplementarios",
+        "Desconoce adquisición de paquetes de tráfico o señales de programación",
+        "Desconoce contrato de adquisición o financiamiento de equipo terminal cuyo pago es incluido en el recibo como concepto facturable"
       ],
       ejemplos: [
         "Cliente encuentra en su recibo cargos por financiamiento de un celular que no ha comprado ni solicitado."
@@ -227,10 +227,10 @@ const CLAIMS_DATA = {
       nombre: "Migración",
       definicion: "Problemas con el cambio de plan tarifario (condicionamiento, plazos, facturación errónea o cambios no solicitados).",
       submotivos: [
-        "Condicionamiento, negativa o falta de respuesta a la solicitud de migración de plan.",
-        "Falta de ejecución de la migración dentro del plazo establecido.",
-        "Facturación que corresponde al plan anterior después de realizada la migración.",
-        "Migración de plan no solicitada o autorizada por el cliente."
+        "Condicionamiento, negativa o falta de respuesta de la solicitud de migración",
+        "Falta de ejecución de la migración dentro del plazo establecido",
+        "Facturación corresponde al plan anterior",
+        "Migración no solicitada"
       ],
       ejemplos: [
         "Se solicita migración a un plan menor, no se ejecuta y se sigue cobrando la renta del plan caro.",
@@ -242,12 +242,12 @@ const CLAIMS_DATA = {
       nombre: "Portabilidad",
       definicion: "Problemas en el trámite de transferencia de número telefónico desde o hacia otra operadora.",
       submotivos: [
-        "Negativa a recibir la solicitud de portabilidad del número.",
-        "Rechazo injustificado a la solicitud de portabilidad.",
-        "Falta de entrega de información obligatoria sobre el estado de la portabilidad.",
-        "Falta de consentimiento del abonado para efectuar el proceso de portabilidad.",
-        "Falta de cobertura del servicio tras completarse la portabilidad.",
-        "Falta de retorno del número telefónico (cuando hay resolución firme que ordena el retorno y no se ejecuta)."
+        "Negativa a recibir la solicitud de portabilidad",
+        "Rechazo a la solicitud de portabilidad",
+        "Falta de entrega de información sobre portabilidad",
+        "Falta de consentimiento del abonado para efectuar la portabilidad",
+        "Falta de cobertura",
+        "Falta de retorno del número telefónico"
       ],
       ejemplos: [
         "Bitel rechaza la portabilidad de una línea prepago sin causa válida.",
@@ -259,9 +259,9 @@ const CLAIMS_DATA = {
       nombre: "Otras Materias Reclamables",
       definicion: "Cualquier otra materia que la ley de telecomunicaciones contemple de manera taxativa.",
       submotivos: [
-        "Negativa de la operadora a contratar el servicio con el usuario.",
-        "Falta de entrega de recibos (físicos o electrónicos).",
-        "Negativa a brindar la facturación detallada (detalle de consumos) o el registro de llamadas entrantes."
+        "Negativa a contratar el servicio",
+        "Falta de entrega de recibos",
+        "Negativa a brindar la facturación detallada o llamadas entrantes"
       ],
       ejemplos: [
         "El cliente solicita su recibo mensual en físico o por correo y la empresa no se lo envía.",
