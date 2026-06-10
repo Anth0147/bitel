@@ -118,17 +118,9 @@ const CLAIMS_DATA = {
     },
     {
       id: 2,
-      nombre: "Calidad o Idoneidad en la Prestación del Servicio",
+      nombre: "Calidad o Idonedidad en la Prestación del Servicio",
       definicion: "Problemas derivados de una inadecuada prestación del servicio técnico u operativo.",
-      submotivos: [
-        "Inconvenientes con casilla de voz",
-        "No realiza - recibe llamadas",
-        "Envío - recepción de SMS",
-        "Problemas de señal - cobertura",
-        "Intermitencia",
-        "Lentitud",
-        "Comunicaciones entrecortadas o con ruido"
-      ],
+      submotivos: [],
       ejemplos: [
         "Problemas constantes para realizar llamadas, enviar mensajes o navegar por internet."
       ]
@@ -310,7 +302,7 @@ const CLAIMS_DATA = {
         notificationDays: 5,
         title: "Resolución Corta (3 días útiles)",
         materias: [
-          "Calidad o Idoneidad en la Prestación del Servicio",
+          "Calidad o Idonedidad en la Prestación del Servicio",
           "Falta de Servicio",
           "Falta de Ejecución de Baja o Suspensión del Servicio",
           "Portabilidad",
