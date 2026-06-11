@@ -359,6 +359,19 @@ function bindMateriaDetailEvents(materiaId, uniqueConceptsMap) {
         "Registro de Problemas de Calidad y Averías",
         "Detalle de Consumos"
       ];
+    } else if (
+      materiaId === 4 &&
+      (selectedConcept === "Interrupción, suspensión, corte o baja injustificada del servicio o sin observar el procedimiento establecido en la normativa vigente" ||
+       selectedConcept === "Falta de reactivación del servicio pese al pago del recibo") &&
+      (serviceName === "Servicio Móvil Postpago" || serviceName === "Internet de Acceso Fijo")
+    ) {
+      bitelMedios = [
+        "Consulta del estado del servicio",
+        "Recibo del mes",
+        "Histórico de estado de cuenta",
+        "Informe de recaudación de pagos",
+        "Histórico de cortes y reactivaciones"
+      ];
     } else {
       bitelMedios = medios || [];
     }
